@@ -1,6 +1,7 @@
 export const customPresets = [
   {
     preset: 0,
+    foreground: null,
     background: null,
 
     algorithm: 'multi-person-instance',
@@ -42,6 +43,7 @@ export const customPresets = [
   },
   {
     preset: 'Blur',
+    foreground: null,
     background: null,
 
     algorithm: 'multi-person-instance',
@@ -69,6 +71,48 @@ export const customPresets = [
       opacity: 0.7,
       backgroundBlurAmount: 8,
       maskBlurAmount: 0,
+      edgeBlurAmount: 15,
+    },
+    partMap: {
+      colorScale: 'rainbow',
+      effect: 'partMap',
+      segmentationThreshold: 0.5,
+      opacity: 0.9,
+      blurBodyPartAmount: 3,
+      bodyPartEdgeBlurAmount: 3,
+    },
+    showFps: false,
+  },
+  {
+    preset: 'Greenscreen',
+    foreground: {r: 0, g: 0, b: 0, a: 0},
+    background: {r: 0, g: 255, b: 0, a: 255},
+
+    algorithm: 'multi-person-instance',
+    estimate: 'segmentation',
+    camera: null,
+    flipHorizontal: true,
+    input: {
+      architecture: 'ResNet50',
+      outputStride: 16,
+      internalResolution: 'low',
+      multiplier: 1,
+      quantBytes: 2,
+    },
+    multiPersonDecoding: {
+      maxDetections: 5,
+      scoreThreshold: 0.3,
+      nmsRadius: 20,
+      numKeypointForMatching: 17,
+      refineSteps: 10,
+    },
+    segmentation: {
+      segmentationThreshold: 0.4,
+      effect: 'mask',
+      maskBackground: true,
+      opacity: 1,
+      backgroundBlurAmount: 8,
+      maskBlurAmount: 6,
       edgeBlurAmount: 15,
     },
     partMap: {
