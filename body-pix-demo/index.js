@@ -397,7 +397,9 @@ function segmentBodyInRealTime() {
             bodyPix.drawMask(
                 canvas, state.video, mask, guiState.segmentation.opacity,
                 guiState.segmentation.maskBlurAmount, flipHorizontally);
-            drawPoses(multiPersonSegmentation, flipHorizontally, ctx);
+            if (guiState.drawPoses) {
+              drawPoses(multiPersonSegmentation, flipHorizontally, ctx);
+            }
             break;
           case 'bokeh':
             bodyPix.drawBokehEffect(
@@ -437,7 +439,9 @@ function segmentBodyInRealTime() {
                 blurBodyPartIds, guiState.partMap.blurBodyPartAmount,
                 guiState.partMap.edgeBlurAmount, flipHorizontally);
         }
-        drawPoses(multiPersonPartSegmentation, flipHorizontally, ctx);
+        if (guiState.drawPoses) {
+          drawPoses(multiPersonPartSegmentation, flipHorizontally, ctx);
+        }
         break;
       default:
         break;

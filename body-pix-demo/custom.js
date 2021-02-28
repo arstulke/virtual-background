@@ -3,6 +3,7 @@ export const customPresets = [
     preset: 0,
     foreground: null,
     background: null,
+    drawPoses: true,
 
     algorithm: 'multi-person-instance',
     estimate: 'partmap',
@@ -45,6 +46,7 @@ export const customPresets = [
     preset: 'Blur',
     foreground: null,
     background: null,
+    drawPoses: false,
 
     algorithm: 'multi-person-instance',
     estimate: 'segmentation',
@@ -87,6 +89,7 @@ export const customPresets = [
     preset: 'Greenscreen',
     foreground: {r: 0, g: 0, b: 0, a: 0},
     background: {r: 0, g: 255, b: 0, a: 255},
+    drawPoses: false,
 
     algorithm: 'multi-person-instance',
     estimate: 'segmentation',
