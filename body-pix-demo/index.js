@@ -21,7 +21,7 @@ import Stats from 'stats.js';
 
 import {drawKeypoints, drawSkeleton, toggleLoadingUI} from './demo_util';
 import * as partColorScales from './part_color_scales';
-import { customPresets, customPresetOptions, mergeDeep } from './custom.js';
+import {customPresets, customPresetOptions, mergeDeep} from './custom.js';
 
 
 const stats = new Stats();
@@ -56,16 +56,16 @@ async function getVideoInputs() {
 
   const devices = await navigator.mediaDevices.enumerateDevices();
 
-  const videoDevices = devices.filter(device => device.kind === 'videoinput');
+  const videoDevices = devices.filter((device) => device.kind === 'videoinput');
 
   return videoDevices;
 }
 
 function stopExistingVideoCapture() {
   if (state.video && state.video.srcObject) {
-    state.video.srcObject.getTracks().forEach(track => {
+    state.video.srcObject.getTracks().forEach((track) => {
       track.stop();
-    })
+    });
     state.video.srcObject = null;
   }
 }
@@ -142,7 +142,7 @@ async function loadVideo(cameraLabel) {
   try {
     state.video = await setupCamera(cameraLabel);
   } catch (e) {
-    let info = document.getElementById('info');
+    const info = document.getElementById('info');
     info.textContent = 'this browser does not support video capture,' +
         'or this device does not have a camera';
     info.style.display = 'block';
@@ -172,14 +172,14 @@ const guiState = {
     outputStride: 16,
     internalResolution: 'low',
     multiplier: 0.50,
-    quantBytes: 2
+    quantBytes: 2,
   },
   multiPersonDecoding: {
     maxDetections: 5,
     scoreThreshold: 0.3,
     nmsRadius: 20,
     numKeypointForMatching: 17,
-    refineSteps: 10
+    refineSteps: 10,
   },
   segmentation: {
     segmentationThreshold: 0.7,
@@ -188,7 +188,7 @@ const guiState = {
     opacity: 0.7,
     backgroundBlurAmount: 3,
     maskBlurAmount: 0,
-    edgeBlurAmount: 3
+    edgeBlurAmount: 3,
   },
   partMap: {
     colorScale: 'rainbow',
@@ -198,15 +198,15 @@ const guiState = {
     blurBodyPartAmount: 3,
     bodyPartEdgeBlurAmount: 3,
   },
-  showFps: !isMobile()
+  showFps: !isMobile(),
 };
 
 function toCameraOptions(cameras) {
   const result = {default: null};
 
-  cameras.forEach(camera => {
+  cameras.forEach((camera) => {
     result[camera.label] = camera.label;
-  })
+  });
 
   return result;
 }
@@ -217,17 +217,17 @@ function toCameraOptions(cameras) {
 function setupGui(cameras) {
   const gui = new dat.GUI({width: 400});
   gui.add(guiState, 'preset', customPresetOptions)
-    .onChange(async function(option) {
-      loadPreset(option);
-    });
+      .onChange(async function(option) {
+        loadPreset(option);
+      });
   loadPreset(guiState.preset);
   gui.add(guiState, 'camera', toCameraOptions(cameras))
-    .onChange(async function(cameraLabel) {
-      state.changingCamera = true;
-      await loadVideo(cameraLabel);
-      state.changingCamera = false;
-    });
-  gui.add(guiState, 'showFps').onChange(showFps => {
+      .onChange(async function(cameraLabel) {
+        state.changingCamera = true;
+        await loadVideo(cameraLabel);
+        state.changingCamera = false;
+      });
+  gui.add(guiState, 'showFps').onChange((showFps) => {
     updateFps(showFps);
   });
 }
@@ -257,7 +257,7 @@ function loadPreset(presetIndex) {
  * Sets up a frames per second panel on the top-left of the window
  */
 function setupFPS() {
-  stats.showPanel(0);  // 0: fps, 1: ms, 2: mb, 3+: custom
+  stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
   if (guiState.showFps) {
     document.body.appendChild(stats.dom);
   }
@@ -265,7 +265,7 @@ function setupFPS() {
 
 
 async function estimateSegmentation() {
-  let multiPersonSegmentation = null;
+  const multiPersonSegmentation = null;
   switch (guiState.algorithm) {
     case 'multi-person-instance':
       return await state.net.segmentMultiPerson(state.video, {
@@ -276,7 +276,7 @@ async function estimateSegmentation() {
         nmsRadius: guiState.multiPersonDecoding.nmsRadius,
         numKeypointForMatching:
             guiState.multiPersonDecoding.numKeypointForMatching,
-        refineSteps: guiState.multiPersonDecoding.refineSteps
+        refineSteps: guiState.multiPersonDecoding.refineSteps,
       });
     case 'person':
       return await state.net.segmentPerson(state.video, {
@@ -303,7 +303,7 @@ async function estimatePartSegmentation() {
         nmsRadius: guiState.multiPersonDecoding.nmsRadius,
         numKeypointForMatching:
             guiState.multiPersonDecoding.numKeypointForMatching,
-        refineSteps: guiState.multiPersonDecoding.refineSteps
+        refineSteps: guiState.multiPersonDecoding.refineSteps,
       });
     case 'person':
       return await state.net.segmentPersonParts(state.video, {
@@ -321,7 +321,7 @@ async function estimatePartSegmentation() {
 
 function drawPoses(personOrPersonPartSegmentation, flipHorizontally, ctx) {
   if (Array.isArray(personOrPersonPartSegmentation)) {
-    personOrPersonPartSegmentation.forEach(personSegmentation => {
+    personOrPersonPartSegmentation.forEach((personSegmentation) => {
       let pose = personSegmentation.pose;
       if (flipHorizontally) {
         pose = bodyPix.flipPoseHorizontal(pose, personSegmentation.width);
@@ -330,14 +330,14 @@ function drawPoses(personOrPersonPartSegmentation, flipHorizontally, ctx) {
       drawSkeleton(pose.keypoints, 0.1, ctx);
     });
   } else {
-    personOrPersonPartSegmentation.allPoses.forEach(pose => {
+    personOrPersonPartSegmentation.allPoses.forEach((pose) => {
       if (flipHorizontally) {
         pose = bodyPix.flipPoseHorizontal(
             pose, personOrPersonPartSegmentation.width);
       }
       drawKeypoints(pose.keypoints, 0.1, ctx);
       drawSkeleton(pose.keypoints, 0.1, ctx);
-    })
+    });
   }
 }
 
@@ -347,7 +347,7 @@ async function loadBodyPix() {
     architecture: guiState.input.architecture,
     outputStride: guiState.input.outputStride,
     multiplier: guiState.input.multiplier,
-    quantBytes: guiState.input.quantBytes
+    quantBytes: guiState.input.quantBytes,
   });
   toggleLoadingUI(false);
 }
@@ -455,7 +455,7 @@ export async function bindPage() {
 
   await loadVideo(guiState.camera);
 
-  let cameras = await getVideoInputs();
+  const cameras = await getVideoInputs();
 
   setupFPS();
   setupGui(cameras);

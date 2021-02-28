@@ -18,13 +18,10 @@ import * as posenet from '@tensorflow-models/posenet';
 import * as tf from '@tensorflow/tfjs-core';
 
 const COLOR = 'aqua';
-const BOUNDING_BOX_COLOR = 'red';
 const LINE_WIDTH = 2;
 
 export const TRY_RESNET_BUTTON_NAME = 'tryResNetButton';
 export const TRY_RESNET_BUTTON_TEXT = '[New] Try ResNet50';
-const TRY_RESNET_BUTTON_TEXT_CSS = 'width:100%;text-decoration:underline;';
-const TRY_RESNET_BUTTON_BACKGROUND_CSS = 'background:#e61d5f;';
 
 function isAndroid() {
   return /Android/i.test(navigator.userAgent);

@@ -19,10 +19,7 @@
   "scripts": {
     "watch": "cross-env NODE_ENV=development parcel index.html --no-hmr --open ",
     "build": "cross-env NODE_ENV=production parcel build index.html --public-url ./",
-    "lint": "eslint .",
-    "link-local": "yalc link",
-    "build-model": "cd .. && yarn && yarn build-npm",
-    "build-deps": "yarn build-model"
+    "lint": "eslint ."
   },
   "browser": {
     "crypto": false
