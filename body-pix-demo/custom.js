@@ -1,6 +1,6 @@
-export const customPresets = [
-  {
-    preset: 0,
+export const customPresets = {
+  default: {
+    preset: 'default',
     foreground: null,
     background: null,
     drawPoses: true,
@@ -42,7 +42,7 @@ export const customPresets = [
     },
     showFps: true,
   },
-  {
+  pure: {
     preset: 'Pure',
     foreground: null,
     background: null,
@@ -85,7 +85,7 @@ export const customPresets = [
     },
     showFps: false,
   },
-  {
+  blur: {
     preset: 'Blur',
     foreground: null,
     background: null,
@@ -128,7 +128,7 @@ export const customPresets = [
     },
     showFps: false,
   },
-  {
+  greenscreen: {
     preset: 'Greenscreen',
     foreground: {r: 0, g: 0, b: 0, a: 0},
     background: {r: 0, g: 255, b: 0, a: 255},
@@ -171,15 +171,12 @@ export const customPresets = [
     },
     showFps: false,
   },
-];
+};
 export const customPresetOptions = {};
-customPresets.forEach((a, index) => {
-  if (a.preset) {
-    customPresetOptions[a.preset] = index;
-  }
+Object.keys(customPresets).forEach((key, index) => {
+  const preset = customPresets[key];
+  customPresetOptions[preset.preset] = key;
 });
-customPresetOptions.default = 0;
-
 
 function isObject(item) {
   return (item && typeof item === 'object' && !Array.isArray(item));

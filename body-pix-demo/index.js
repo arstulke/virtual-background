@@ -152,12 +152,11 @@ async function loadVideo(cameraLabel) {
   state.video.play();
 }
 
-let presetAtStart = 0;
+let presetAtStart = 'default';
 try {
-  const presetIndexStr = localStorage.getItem('virtual-background.preset');
-  const presetIndex = parseInt(presetIndexStr, 10);
-  if (presetIndex >= 0 && presetIndex < customPresets.length) {
-    presetAtStart = presetIndex;
+  const presetKey = localStorage.getItem('virtual-background.preset');
+  if (presetKey && customPresets[presetKey]) {
+    presetAtStart = presetKey;
   }
 } catch (error) {
 }
@@ -247,14 +246,12 @@ function updateFps(showFps) {
   }
 }
 
-function loadPreset(presetIndex) {
-  if (presetIndex) {
-    presetIndex = Math.max(parseInt(presetIndex, 10), 0);
-  } else {
-    presetIndex = 0;
+function loadPreset(presetKey) {
+  if (!presetKey || !customPresets[presetKey]) {
+    presetKey = 'default';
   }
-  localStorage.setItem('virtual-background.preset', presetIndex);
-  const preset = customPresets[presetIndex];
+  localStorage.setItem('virtual-background.preset', presetKey);
+  const preset = customPresets[presetKey];
   state.changingPreset = true;
   mergeDeep(guiState, preset);
   updateFps(guiState.showFps);
