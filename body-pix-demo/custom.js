@@ -83,9 +83,9 @@ export const customPresets = [
   },
 ];
 export const customPresetOptions = {};
-customPresets.forEach((a, i) => {
+customPresets.forEach((a, index) => {
   if (a.preset) {
-    customPresetOptions[a.preset] = 1;
+    customPresetOptions[a.preset] = index;
   }
 });
 customPresetOptions.default = 0;
