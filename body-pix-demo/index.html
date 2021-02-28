@@ -136,7 +136,8 @@
   <div class="footer">
     <div class="footer-text">
       <p>
-        Original live demo: <a href="https://storage.googleapis.com/tfjs-models/demos/body-pix/index.html">BodyPix - With a webcam demo</a>
+        Original live demo: <a href="https://storage.googleapis.com/tfjs-models/demos/body-pix/index.html">BodyPix - With a webcam demo</a><br>
+        <a href="https://de.freepik.com/vektoren/kamera">Kamera Vektor created by gstudioimagen - de.freepik.com</a>
       </p>
       <p>
         The BodyPix model can estimate which pixels in an image are part of a person, and which pixels
@@ -160,6 +161,15 @@
       <i class="material-icons high-accuracy">high_quality</i>
     </div>
   </div>
+  <script>
+    // Check that service workers are supported
+    if ('serviceWorker' in navigator) {
+      // Use the window load event to keep the page load performant
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+      });
+    }
+  </script>
   <script src="index.js"></script>
 </body>
 
