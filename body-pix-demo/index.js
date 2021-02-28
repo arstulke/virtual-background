@@ -230,13 +230,20 @@ function setupGui(cameras) {
   gui.add(guiState, 'showFps').onChange((showFps) => {
     updateFps(showFps);
   });
+  setTimeout(() => updateFps(guiState.showFps), 1000);
 }
 
 function updateFps(showFps) {
+  const el = document.getElementById(stats.dom.id);
+  const isActivated = el ? true : false;
   if (showFps) {
-    document.body.appendChild(stats.dom);
+    if (!isActivated) {
+      document.body.appendChild(stats.dom);
+    }
   } else {
-    document.body.removeChild(stats.dom);
+    if (isActivated) {
+      document.body.removeChild(stats.dom);
+    }
   }
 }
 
@@ -371,6 +378,7 @@ function segmentBodyInRealTime() {
 
     // Begin monitoring code for frames per second
     stats.begin();
+    stats.dom.id = 'fps-stats';
 
     const flipHorizontally = guiState.flipHorizontal;
 
