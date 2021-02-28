@@ -152,8 +152,17 @@ async function loadVideo(cameraLabel) {
   state.video.play();
 }
 
+let presetAtStart = 0;
+try {
+  const presetIndexStr = localStorage.getItem('virtual-background.preset');
+  const presetIndex = parseInt(presetIndexStr, 10);
+  if (presetIndex >= 0 && presetIndex < customPresets.length) {
+    presetAtStart = presetIndex;
+  }
+} catch (error) {
+}
 const guiState = {
-  preset: 0,
+  preset: presetAtStart,
   algorithm: 'multi-person-instance',
   estimate: 'partmap',
   camera: null,
@@ -237,6 +246,7 @@ function loadPreset(presetIndex) {
   } else {
     presetIndex = 0;
   }
+  localStorage.setItem('virtual-background.preset', presetIndex);
   const preset = customPresets[presetIndex];
   state.changingPreset = true;
   mergeDeep(guiState, preset);
@@ -252,6 +262,7 @@ function setupFPS() {
     document.body.appendChild(stats.dom);
   }
 }
+
 
 async function estimateSegmentation() {
   let multiPersonSegmentation = null;
