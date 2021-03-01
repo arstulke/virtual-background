@@ -44,6 +44,7 @@
     "mkdirp": "^1.0.4",
     "parcel-bundler": "~1.12.3",
     "parcel-plugin-pwa-manifest": "^3.0.10",
+    "parcel-plugin-structurize": "^2.3.2",
     "rimraf": "^3.0.2",
     "workbox-cli": "^6.1.1",
     "yalc": "~1.0.0-pre.23"
@@ -83,5 +84,13 @@
       ],
       "genFavicons": true
     }
+  },
+  "parcel-plugin-structurize": {
+    "rules": [
+      {
+        "match": "*.{jpg,png,webp,gif,svg}",
+        "folder": "assets"
+      }
+    ]
   }
 }
