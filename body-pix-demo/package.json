@@ -21,6 +21,7 @@
     "build": "yarn run clean && yarn run parcel:build && yarn run workbox:generate",
     "clean": "rimraf dist/",
     "parcel:build": "cross-env NODE_ENV=production parcel build src/index.html --no-source-maps --public-url ./",
+    "postparcel:build": "node fix_webmanifest.js",
     "workbox:generate": "workbox generateSW workbox-config.js",
     "lint": "eslint ."
   },
