@@ -130,7 +130,7 @@
   </div>
   <div id='main' style='display:none'>
     <video id="video" playsinline style="display: none;"></video>
-    <canvas id="output">
+    <canvas id="output"></canvas>
   </div>
   <ul id="colors" style="display: none"></ul>
   <div class="footer">
@@ -161,15 +161,6 @@
       <i class="material-icons high-accuracy">high_quality</i>
     </div>
   </div>
-  <script>
-    // Check that service workers are supported
-    if ('serviceWorker' in navigator) {
-      // Use the window load event to keep the page load performant
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js');
-      });
-    }
-  </script>
   <script src="demo.js"></script>
 </body>
 

@@ -22,7 +22,9 @@ import Stats from 'stats.js';
 import {drawKeypoints, drawSkeleton, toggleLoadingUI} from './demo_util';
 import * as partColorScales from './part_color_scales';
 import {customPresets, customPresetOptions, mergeDeep} from './custom.js';
+import {registerServiceWorker} from './service_worker_registration.js';
 
+registerServiceWorker();
 
 const stats = new Stats();
 

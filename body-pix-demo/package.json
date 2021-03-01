@@ -17,14 +17,10 @@
     "stats.js": "0.17.0"
   },
   "scripts": {
-    "prewatch": "yarn run prepare-sw",
     "watch": "cross-env NODE_ENV=development parcel src/index.html --no-hmr --open",
     "build": "yarn run clean && yarn run parcel:build && yarn run workbox:generate",
-    "clean": "rimraf dist/ src/sw.js",
-    "preparcel:build": "yarn run prepare-sw",
-    "prepare-sw": "mkdirp src/ && echo console.error('BUILD ERROR'); > src/sw.js",
+    "clean": "rimraf dist/",
     "parcel:build": "cross-env NODE_ENV=production parcel build src/index.html --no-source-maps --public-url ./",
-    "postparcel:build": "rimraf src/sw.js",
     "workbox:generate": "workbox generateSW workbox-config.js",
     "lint": "eslint ."
   },
@@ -47,6 +43,7 @@
     "parcel-plugin-structurize": "^2.3.2",
     "rimraf": "^3.0.2",
     "workbox-cli": "^6.1.1",
+    "workbox-window": "^6.1.1",
     "yalc": "~1.0.0-pre.23"
   },
   "eslintConfig": {
@@ -88,7 +85,7 @@
   "parcel-plugin-structurize": {
     "rules": [
       {
-        "match": "*.{jpg,png,webp,gif,svg}",
+        "match": "*.{png,webp,svg}",
         "folder": "assets"
       }
     ]
