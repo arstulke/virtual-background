@@ -14,14 +14,17 @@
     "@tensorflow/tfjs-backend-webgl": "^3.1.0",
     "@tensorflow/tfjs-converter": "^3.1.0",
     "@tensorflow/tfjs-core": "^3.1.0",
-    "stats.js": "0.17.0",
-    "workbox": "^0.0.0"
+    "stats.js": "0.17.0"
   },
   "scripts": {
-    "watch": "cross-env NODE_ENV=development parcel index.html --no-hmr --open",
+    "prewatch": "yarn run prepare-sw",
+    "watch": "cross-env NODE_ENV=development parcel src/index.html --no-hmr --open",
     "build": "yarn run clean && yarn run parcel:build && yarn run workbox:generate",
-    "clean": "rimraf dist/",
-    "parcel:build": "cross-env NODE_ENV=production parcel build index.html --no-source-maps --public-url ./ && rm dist/sw.js",
+    "clean": "rimraf dist/ src/sw.js",
+    "preparcel:build": "yarn run prepare-sw",
+    "prepare-sw": "mkdirp src/ && echo console.error('BUILD ERROR'); > src/sw.js",
+    "parcel:build": "cross-env NODE_ENV=production parcel build src/index.html --no-source-maps --public-url ./",
+    "postparcel:build": "rimraf src/sw.js",
     "workbox:generate": "workbox generateSW workbox-config.js",
     "lint": "eslint ."
   },
@@ -38,9 +41,11 @@
     "dat.gui": "~0.7.2",
     "eslint": "~7.20.0",
     "eslint-config-google": "~0.14.0",
+    "mkdirp": "^1.0.4",
     "parcel-bundler": "~1.12.3",
     "parcel-plugin-pwa-manifest": "^3.0.10",
     "rimraf": "^3.0.2",
+    "workbox-cli": "^6.1.1",
     "yalc": "~1.0.0-pre.23"
   },
   "eslintConfig": {
@@ -67,8 +72,15 @@
     "theme": "#80cee8",
     "generateIconOptions": {
       "baseIcon": "./virtual-background-icon.svg",
-      "purpose": ["any"],
-      "sizes": [144, 192, 384, 512],
+      "purpose": [
+        "any"
+      ],
+      "sizes": [
+        144,
+        192,
+        384,
+        512
+      ],
       "genFavicons": true
     }
   }
