@@ -216,7 +216,9 @@ function toCameraOptions(cameras) {
  * Sets up dat.gui controller on the top-right of the window
  */
 function setupGui(cameras) {
-  const gui = new dat.GUI({width: 400});
+  const gui = new dat.GUI({ width: 400, autoPlace: false });
+  document.getElementById('gui-container').append(gui.domElement);
+  
   gui.add(guiState, 'preset', customPresetOptions)
       .onChange(async function(option) {
         loadPreset(option);

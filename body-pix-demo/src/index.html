@@ -10,7 +10,6 @@
     }
 
     .footer {
-      position: fixed;
       left: 0;
       bottom: 0;
       width: 100%;
@@ -112,6 +111,15 @@
         overflow: hidden;
       }
     }
+
+    #main-container {
+      min-height: 500px;
+    }
+
+    #gui-container {
+      margin-left: 2em;
+      margin-bottom: 2em;
+    }
   </style>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -120,18 +128,20 @@
 
 <body>
   <div id="stats"></div>
-  <div id="info" style='display:none'>
-  </div>
-  <div id="loading" style='display:flex'>
-    <div class="spinner-text">
-      Loading BodyPix model...
+  <div id="info" style='display:none'></div>
+  <div id="main-container">
+    <div id="loading" style='display:flex'>
+      <div class="spinner-text">
+        Loading BodyPix model...
+      </div>
+      <div class="sk-spinner sk-spinner-pulse"></div>
     </div>
-    <div class="sk-spinner sk-spinner-pulse"></div>
+    <div id='main' style='display:none'>
+      <video id="video" playsinline style="display: none;"></video>
+      <canvas id="output"></canvas>
+    </div>
   </div>
-  <div id='main' style='display:none'>
-    <video id="video" playsinline style="display: none;"></video>
-    <canvas id="output"></canvas>
-  </div>
+  <div id="gui-container"></div>
   <ul id="colors" style="display: none"></ul>
   <div class="footer">
     <div class="footer-text">
